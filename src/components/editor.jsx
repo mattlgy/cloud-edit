@@ -1,11 +1,16 @@
 "use strict"
 
 import React, { Component, PropTypes } from 'react'
+
+import FlexContainer from 'src/components/flex-container.jsx'
+import FlexChild from 'src/components/flex-child.jsx'
+
 import {
   openFile,
   editFile,
   saveFile,
-} from '../actions'
+  closeFile,
+} from 'src/actions'
 
 export class Editor extends Component {
   constructor (props, context) {
@@ -31,15 +36,24 @@ export class Editor extends Component {
     }
   }
 
+  onClose (path) {
+    return (e) => {
+      this.dispatch(closeFile(path))
+    }
+  }
+
   render () {
-    return (<div>
-      <ul>
+    return (<FlexChild flex={{ flexGrow: 1 }}>
+      <FlexContainer flex={{ }}>
         { this.props.files.map(f =>
-          <li key={ f.path }>
-            <h4 onClick={ this.openFile(f.path) }>{ f.name }</h4>
-          </li>
+          <FlexChild key={ f.path }>
+            <h4
+              style={{ paddingLeft: '5px', paddingRight: '5px' }}
+              onClick={ this.openFile(f.path) }>{ f.name }
+            </h4>
+          </FlexChild>
         )}
-      </ul>
+      </FlexContainer>
       <div>
         { this.props.files.map(f =>
           <EditorPane
@@ -47,10 +61,11 @@ export class Editor extends Component {
             key={ f.path }
             onEdit={ this.onEdit(f.path) }
             onSave={ this.onSave(f.path) }
+            onClose={ this.onClose(f.path) }
           />
         )}
       </div>
-    </div>)
+    </FlexChild>)
   }
 }
 
@@ -64,6 +79,8 @@ class EditorPane extends Component {
     if (!this.props.file.expanded) style.display = 'none'
     return (<div style={ style }>
       <button onClick={ this.props.onSave }>save</button>
+      <button onClick={ this.props.onClose }>close</button>
+      <br />
       <textarea value={ this.props.file.draft } onChange={ this.props.onEdit } />
     </div>)
   }

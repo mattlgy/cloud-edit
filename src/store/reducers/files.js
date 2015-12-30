@@ -5,6 +5,7 @@
 
 import {
   FILE_LOADED,
+  FILE_CLOSE,
   FILE_EXPAND,
   FILE_EDIT,
 } from "../../actions"
@@ -37,6 +38,8 @@ export default function files (state = initialState, action) {
       })
     case FILE_EXPAND:
       return state.map(f => Object.assign({}, f, { expanded: f.path === action.path }))
+    case FILE_CLOSE:
+      return state.filter(f => f.path !== action.path)
     case FILE_EDIT:
       return state.map(f => Object.assign({}, f, { draft: f.path === action.path ? action.draft : f.draft }))
     default:

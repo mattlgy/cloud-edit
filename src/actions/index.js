@@ -10,6 +10,7 @@ export const COLAPSE_DIRECTORY = 'COLAPSE_DIRECTORY'
 
 export const FILE_LOADED = 'FILE_LOADED'
 export const FILE_EXPAND = 'FILE_EXPAND'
+export const FILE_CLOSE = 'FILE_CLOSE'
 export const FILE_EDIT = 'FILE_EDIT'
 
 export function loadDirecrtory (dir) {
@@ -47,6 +48,13 @@ export function openFile (path) {
     }
     getState().socket.io.emit('readfile', path)
   }
+}
+
+export function closeFile (path) {
+    return {
+      type: FILE_CLOSE,
+      path: path
+    }
 }
 
 export function editFile (path, draft) {

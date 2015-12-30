@@ -3,6 +3,7 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
 
+import FlexContainer from 'src/components/flex-container.jsx'
 import DirectoryPanel from './directory-panel/directory-panel.jsx'
 import { Editor } from './editor.jsx'
 
@@ -14,14 +15,14 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <FlexContainer>
         <DirectoryPanel
           dispatch={ this.props.dispatch }
           directoryTree={ this.props.directoryTree }
           directories={ this.props.directories }
         />
         <Editor files={ this.props.files } dispatch={ this.props.dispatch } />
-      </div>
+      </FlexContainer>
     )
   }
 }
