@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify ./src/index.js -vdo ./www/cloud-edit.js -t [ babelify --presets [ es2015 react ] ]",
     "watch": "watchify ./src/index.js -vdo ./www/cloud-edit.js -t [ babelify --presets [ es2015 react ] ]",
-    "start": "node --es_staging --harmony_destructuring --harmony_default_parameters server.js"
+    "start": "node --es_staging --harmony_destructuring --harmony_default_parameters server.js",
+    "setuplinks": "cd node_modules; ln -s ../src"
   },
   "keywords": [
     "cloud",
