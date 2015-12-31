@@ -1,7 +1,5 @@
 "use strict"
 
-import { diffLines, createPatch, structuredPatch } from 'diff'
-
 export const DIRECTORIE_LOADED = 'DIRECTORIE_LOADED'
 export const SOCKET_CONNECTED = 'SOCKET_CONNECTED'
 
@@ -68,10 +66,13 @@ export function editFile (path, draft) {
 export function saveFile (path) {
   return function (dispatch, getState) {
     let file = getState().files.find(f => f.path === path)
-    // let diff = diffLines(file.content, file.draft)
-    // let diff = createPatch(file.name, file.content, file.draft)
-    // let diff = structuredPatch(file.name, file.name, file.content, file.draft)
-    // console.log(diff);
     getState().socket.io.emit('writefile', path, file.draft)
+  }
+}
+
+export function saveCurrentFile () {
+  return function (dispatch, getState) {
+    let file = getState().files.find(f => f.expanded)
+    dispatch(saveFile(file.path))
   }
 }

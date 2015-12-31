@@ -1,15 +1,13 @@
 "use strict"
 
-
-
 import React from "react"
 import ReactDOM from "react-dom"
+import { Provider } from 'react-redux'
+
 import Store from "./store"
 import App from "./components/app.jsx"
-import { Provider } from 'react-redux'
-import immutable from 'immutable'
+import { initShortcuts } from 'src/shortcuts'
 
-// const store = Store(immutable.fromJS(window.__INITIAL_STATE__))
 const store = Store()
 
 window.store = store
@@ -21,6 +19,8 @@ store.dispatch({
   type: 'SOCKET_CONNECTED',
   socket: socket
 })
+
+initShortcuts(store.dispatch)
 
 socket.emit('readdir', '/')
 socket.on('dir', function (dir) {
@@ -37,7 +37,7 @@ socket.on('file', function (file) {
     type: "FILE_LOADED",
     path: file.path,
     name: file.name,
-    contents: file.contents,
+    content: file.contents,
   })
 })
 

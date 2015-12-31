@@ -47,10 +47,23 @@ export class Editor extends Component {
       <FlexContainer flex={{ }}>
         { this.props.files.map(f =>
           <FlexChild key={ f.path }>
-            <h4
-              style={{ paddingLeft: '5px', paddingRight: '5px' }}
-              onClick={ this.openFile(f.path) }>{ f.name }
-            </h4>
+            <FlexContainer flex={{ }}>
+              <FlexChild>
+                <h4
+                  style={{
+                    paddingLeft: '5px',
+                    paddingRight: '5px',
+                    marginTop: '5px',
+                    marginBottom: '5px',
+                  }}
+                  onClick={ this.openFile(f.path) }>
+                    { f.dirty ? '~' : '' }{ f.name }
+                </h4>
+              </FlexChild>
+              <FlexChild>
+                <span onClick={ this.onClose(f.path) }>x</span>
+              </FlexChild>
+            </FlexContainer>
           </FlexChild>
         )}
       </FlexContainer>
@@ -60,8 +73,6 @@ export class Editor extends Component {
             file={ f }
             key={ f.path }
             onEdit={ this.onEdit(f.path) }
-            onSave={ this.onSave(f.path) }
-            onClose={ this.onClose(f.path) }
           />
         )}
       </div>
@@ -78,9 +89,6 @@ class EditorPane extends Component {
     var style = {}
     if (!this.props.file.expanded) style.display = 'none'
     return (<div style={ style }>
-      <button onClick={ this.props.onSave }>save</button>
-      <button onClick={ this.props.onClose }>close</button>
-      <br />
       <textarea value={ this.props.file.draft } onChange={ this.props.onEdit } />
     </div>)
   }

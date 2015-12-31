@@ -24,7 +24,8 @@ export default function files (state = initialState, action) {
         if (f.path !== action.path) return f
         found = true
         return Object.assign({}, f, {
-          content: action.contents,
+          content: action.content,
+          dirty: f.draft !== action.content
         })
       })
       if (found) return files
@@ -32,16 +33,25 @@ export default function files (state = initialState, action) {
       return colapseAll(state).concat({
         name: action.name,
         path: action.path,
-        content: action.contents,
-        draft: action.contents,
+        content: action.content,
+        draft: action.content,
+        dirty: false,
         expanded: true,
       })
     case FILE_EXPAND:
-      return state.map(f => Object.assign({}, f, { expanded: f.path === action.path }))
+      return state.map(f => Object.assign({}, f, {
+        expanded: f.path === action.path
+      }))
     case FILE_CLOSE:
       return state.filter(f => f.path !== action.path)
     case FILE_EDIT:
-      return state.map(f => Object.assign({}, f, { draft: f.path === action.path ? action.draft : f.draft }))
+      return state.map(f => {
+          if (f.path !== action.path) return f
+          return Object.assign({}, f, {
+            draft: action.draft,
+            dirty: f.draft !== action.content
+          })
+      })
     default:
       return state;
   }
