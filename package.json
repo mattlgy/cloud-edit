@@ -16,6 +16,10 @@
   ],
   "author": "Matt Liegey <mtliegey@gmail.com>",
   "license": "ISC",
+  "jshintConfig": {
+    "asi": true,
+    "esnext": true
+  },
   "dependencies": {
     "diff": "^2.2.1",
     "express": "^4.13.3",
@@ -31,6 +35,7 @@
     "immutable": "^3.7.6",
     "react": "^0.14.3",
     "react-redux": "^4.0.5",
+    "react-select": "^0.9.1",
     "redux": "^3.0.5",
     "socket.io-client": "^1.3.7",
     "watchify": "^3.6.1"

@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
 
 import FlexContainer from 'src/components/flex-container.jsx'
-import DirectoryPanel from './directory-panel/directory-panel.jsx'
+import DirectoryPanel from 'src/components/directory-panel/directory-panel.jsx'
+// import DirectoryPanel from 'src/components/directory-panel/directory-panel.jsx'
 import { Editor } from './editor.jsx'
 
 class App extends React.Component {
