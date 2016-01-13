@@ -9,37 +9,37 @@ function getStats (f) {
   })
 }
 
-module.exports = function opendir (root, dir, opts = {}) {
-  var p = dir === '/' ? '/' : dir + '/'
+module.exports = function readdir (root, path, opts = {}) {
+  var p = path === '/' ? '/' : path + '/'
 
   return new Promise(function (resolve, reject) {
-    fs.readdir(root + dir, function (err, files) {
+    fs.readdir(root + path, function (err, files) {
       if (err) return reject(err)
 
-      Promise.all(files.map(f => getStats(root+dir+'/'+f)))
+      Promise.all(files.map(f => getStats(root+path+'/'+f)))
       .then(function (stats) {
         var dir = {
           directories: [],
           files: [],
-          name: dir === '/' ? '/' : dir.split('/').pop(),
-          path: dir
+          name: path === '/' ? '/' : path.split('/').pop(),
+          path: path
         }
         stats.forEach(function (s, i) {
           if (s.isFile()) {
             dir.files.push({
               name: files[i],
               size: s.size,
-              path: p + files[1],
+              path: p + files[i],
             })
           } else {
             dir.directories.push({
               name: files[i],
-              path: p + files[1],
+              path: p + files[i],
             })
           }
         })
         resolve(dir)
-      })
+      }).catch(reject)
     })
   })
 }

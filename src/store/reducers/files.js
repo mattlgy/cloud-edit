@@ -29,7 +29,6 @@ export default function files (state = initialState, action) {
         })
       })
       if (found) return files
-      console.log('poo');
       return colapseAll(state).concat({
         name: action.name,
         path: action.path,

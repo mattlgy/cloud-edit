@@ -8,7 +8,7 @@ import Store from "./store"
 import App from "./components/app.jsx"
 import { initShortcuts } from 'src/shortcuts'
 
-const store = Store()
+const store = new Store()
 
 window.store = store
 
@@ -24,6 +24,7 @@ initShortcuts(store.dispatch)
 
 socket.emit('readdir', '/')
 socket.on('dir', function (dir) {
+  console.log(dir)
   store.dispatch({
     type: "DIRECTORIE_LOADED",
     path: dir.path,

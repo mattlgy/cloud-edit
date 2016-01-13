@@ -10,8 +10,6 @@ export default class DirectoryTree extends Component {
   }
 
   onDirectoryClick (e) {
-    console.log('foo')
-    console.log(this.props.onDirectoryClick);
     if (this.props.onDirectoryClick) this.props.onDirectoryClick(this.path)
   }
 
