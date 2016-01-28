@@ -5,6 +5,7 @@ import React, { Component, PropTypes } from 'react'
 
 import FlexContainer from 'src/components/flex-container.jsx'
 import DirectoryPanel from 'src/components/directory-panel/directory-panel.jsx'
+import CommandPalet from 'src/components/command-palet.jsx'
 // import DirectoryPanel from 'src/components/directory-panel/directory-panel.jsx'
 import { Editor } from './editor.jsx'
 
@@ -15,7 +16,7 @@ class App extends React.Component {
   }
 
   render () {
-    return (
+    return (<div>
       <FlexContainer>
         <DirectoryPanel
           dispatch={ this.props.dispatch }
@@ -24,7 +25,8 @@ class App extends React.Component {
         />
         <Editor files={ this.props.files } dispatch={ this.props.dispatch } />
       </FlexContainer>
-    )
+      <CommandPalet commands={ this.props.commands } />
+    </div>)
   }
 }
 // App.propTypes = @TODO

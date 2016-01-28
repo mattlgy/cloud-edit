@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify ./src/index.js -vdo ./www/cloud-edit.js -t [ babelify --presets [ es2015 react ] ]",
-    "watch": "watchify ./src/index.js -vdo ./www/cloud-edit.js -t [ babelify --presets [ es2015 react ] ]",
+    "build": "browserify ./src/index.js -vdo ./www/cloud-edit.js -t browserify-css -t [ babelify --presets [ es2015 react ] ]",
+    "watch": "watchify ./src/index.js -vdo ./www/cloud-edit.js -t browserify-css -t [ babelify --presets [ es2015 react ] ]",
     "start": "node --es_staging --harmony_destructuring --harmony_default_parameters server.js",
     "setuplinks": "cd node_modules; ln -s ../src"
   },
@@ -18,12 +18,14 @@
   "license": "ISC",
   "jshintConfig": {
     "asi": true,
-    "esnext": true
+    "esnext": true,
+    "esversion": 6
   },
   "dependencies": {
     "diff": "^2.2.1",
     "express": "^4.13.3",
     "react-dom": "^0.14.3",
+    "react-select": "^1.0.0-beta8",
     "recursive-readdir": "^1.3.0",
     "socket.io": "^1.3.7"
   },
@@ -32,6 +34,7 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
+    "browserify-css": "^0.8.4",
     "immutable": "^3.7.6",
     "react": "^0.14.3",
     "react-redux": "^4.0.5",

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import Store from "./store"
 import App from "./components/app.jsx"
 import { initShortcuts } from 'src/shortcuts'
+import { initCommands, commands } from 'src/commands'
 
 const store = new Store()
 
@@ -21,6 +22,7 @@ store.dispatch({
 })
 
 initShortcuts(store.dispatch)
+var onCommand = initCommands(store.dispatch)
 
 socket.emit('readdir', '/')
 socket.on('dir', function (dir) {
@@ -44,6 +46,6 @@ socket.on('file', function (file) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App onCommand={ onCommand } commands={ commands } />
   </Provider>
 , document.getElementById('app'))

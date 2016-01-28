@@ -1,6 +1,6 @@
 {
   "browserify": {
-    "transform": [["babelify", { "presets": ["es2015", "react"] }]]
+    "transform": [["browserify-css", {"global": true}], ["babelify", { "presets": ["es2015", "react"] }]]
   },
   "jshintConfig": {
     "asi": true,

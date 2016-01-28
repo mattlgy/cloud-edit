@@ -2,7 +2,7 @@ import {
   saveCurrentFile
 } from 'src/actions'
 
-export const commandList = [
+export const commands = [
   {
     label: 'save',
     'value': 'save',
@@ -11,7 +11,7 @@ export const commandList = [
 ]
 
 export function initCommands (dispatch) {
-  return function (command) {
+  return function onCommand (command) {
     let c = commandList.find(c => c.value === command)
     if (c) c.fn(dispatch)
   }
